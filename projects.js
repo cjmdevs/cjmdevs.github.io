@@ -26,6 +26,7 @@ window.PROJECTS = [
     tags: ["electron", "react", "node.js", "sqlite"],
     repo: "https://github.com/cjmdevs/Treetop",
     demo: "",
+    screenshot: "screenshots/treetop.png",
     story: [
       "Built for an actual CPA firm's day-to-day workflow — engagements, projects, time tracking, invoicing, accounts receivable, due dates, contacts, staff, and workflow automations. The kind of thing that usually costs a fortune in SaaS subscriptions.",
       "It runs as a proper desktop app (Electron) with a local Node/SQLite server on the office LAN. Every workstation connects to one shared database over the network, no cloud required. The installer drops on Windows machines and just works."
@@ -45,6 +46,7 @@ window.PROJECTS = [
     tags: ["next.js", "supabase", "typescript", "tailwind"],
     repo: "https://github.com/cjmdevs/Financial-Tracker",
     demo: "",
+    screenshot: "screenshots/financial-tracker.png",
     story: [
       "I wanted a finance tracker that didn't require a subscription, didn't sell my data, and worked like a real app on my phone. So I built one with Next.js and Supabase — free to host, installable as a PWA, and actually fast.",
       "It tracks accounts and net worth, handles recurring expenses automatically, and has custom budgets that can be set as a fixed dollar amount or a percentage of income. The whole thing runs on SQL views so the numbers are always consistent."

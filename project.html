@@ -78,7 +78,7 @@
         <p class="lead">${p.blurb}</p>
 
         <image-slot class="hero-shot shot-frame" id="hero-${p.slug}"
-          placeholder="drop a screenshot of ${p.title} · click or drag an image" radius="20"></image-slot>
+          placeholder="drop a screenshot of ${p.title} · click or drag an image" radius="20"${p.screenshot ? ` src="${p.screenshot}"` : ''}></image-slot>
 
         <div class="detail-grid">
           <aside class="sidecard">

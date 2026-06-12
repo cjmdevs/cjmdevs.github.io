@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Carson Maurer — Projects</title>
+<meta name="description" content="A developer who builds tools for fun. Selected side projects." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="glass.css" />
+</head>
+<body>
+  <div class="ambient"></div>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav">
+    <div class="wrap">
+      <a class="logo" href="index.html">
+        <span class="mark">CM</span>
+        Carson Maurer
+      </a>
+      <span class="spacer"></span>
+      <nav class="nav-links">
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <a class="ext" href="https://github.com/cjmdevs" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============ HERO ============ -->
+    <section class="wrap hero">
+      <span class="kicker reveal">Portfolio · 2026</span>
+      <h1 class="reveal">I build small things, <span class="accent">for the fun of it.</span></h1>
+      <p class="reveal" id="about">In my off hours I turn whatever idea won’t leave my head into a working app — usually with Claude Code, usually overnight. This is the running list of what made it out.</p>
+      <div class="scroll-hint reveal"><span class="ln"></span> Selected work below</div>
+    </section>
+
+    <!-- ============ WORK ============ -->
+    <section class="wrap" id="work">
+      <div class="work-head">
+        <h2>Selected work</h2>
+        <span class="count" id="count">—</span>
+      </div>
+      <div class="grid" id="grid"></div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="foot">
+    <div class="wrap">
+      <div>
+        <div class="big">Let’s build something.</div>
+        <div class="meta" style="margin-top:8px">Always tinkering. Say hi.</div>
+      </div>
+      <div class="meta" style="text-align:right;line-height:2">
+        <a href="https://github.com/cjmdevs" target="_blank" rel="noopener">github.com/cjmdevs</a><br />
+        <a href="mailto:carsonjjmaurer@gmail.com">carsonjjmaurer@gmail.com</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="image-slot.js"></script>
+  <script src="projects.js"></script>
+  <script>
+    // ---- render project cards ----
+    (function () {
+      const grid = document.getElementById('grid');
+      const list = window.PROJECTS || [];
+      document.getElementById('count').textContent =
+        String(list.length).padStart(2, '0') + ' projects';
+
+      grid.innerHTML = list.map((p, i) => {
+        const tags = p.tags.slice(0, 2).map(t => `<span class="chip">${t}</span>`).join('');
+        return `
+          <article class="card reveal" data-slug="${p.slug}" style="animation-delay:${i * 70}ms">
+            <image-slot class="shot shot-frame" id="card-${p.slug}"
+              placeholder="drop ${p.slug}.png" radius="13"></image-slot>
+            <div class="body">
+              <div class="row">
+                <h3>${p.title}</h3>
+                <span class="yr">${p.year}</span>
+              </div>
+              <p class="blurb">${p.blurb}</p>
+              <div class="cardfoot">
+                <div class="tags">${tags}</div>
+                <span class="view">View <span class="ar">→</span></span>
+              </div>
+            </div>
+          </article>`;
+      }).join('');
+
+      grid.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('click', e => {
+          if (e.target.closest('image-slot')) return;
+          location.href = 'project.html?p=' + card.dataset.slug;
+        });
+      });
+    })();
+  </script>
+
+  <!-- ============ TWEAKS ============ -->
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script type="text/babel" src="tweaks-panel.jsx"></script>
+  <script type="text/babel" src="tweaks.jsx"></script>
+</body>
+</html>

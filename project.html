@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Project — Carson Maurer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="glass.css" />
+</head>
+<body>
+  <div class="ambient"></div>
+
+  <header class="nav">
+    <div class="wrap">
+      <a class="logo" href="index.html">
+        <span class="mark">CM</span>
+        Carson Maurer
+      </a>
+      <span class="spacer"></span>
+      <nav class="nav-links">
+        <a href="index.html#work">Work</a>
+        <a class="ext" href="https://github.com/cjmdevs" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap detail" id="detail"><!-- rendered --></div>
+  </main>
+
+  <script src="image-slot.js"></script>
+  <script src="projects.js"></script>
+  <script>
+    (function () {
+      const list = window.PROJECTS || [];
+      const slug = new URLSearchParams(location.search).get('p');
+      const idx = list.findIndex(p => p.slug === slug);
+      const root = document.getElementById('detail');
+
+      if (idx === -1) {
+        document.title = 'Not found — Carson Maurer';
+        root.innerHTML = `
+          <div class="notfound">
+            <h1>Project not found</h1>
+            <p>That one might still be in a branch somewhere.</p>
+            <p style="margin-top:26px"><a class="btn" href="index.html"><span class="ar">←</span> Back to all projects</a></p>
+          </div>`;
+        return;
+      }
+
+      const p = list[idx];
+      document.title = p.title + ' — Carson Maurer';
+
+      const prev = list[idx - 1];
+      const next = list[idx + 1];
+      const tags = p.tags.map(t => `<span class="chip">${t}</span>`).join('');
+      const links = [
+        p.repo ? `<a class="btn primary" href="${p.repo}" target="_blank" rel="noopener">View on GitHub <span class="ar">↗</span></a>` : '',
+        p.demo ? `<a class="btn" href="${p.demo}" target="_blank" rel="noopener">Live demo <span class="ar">↗</span></a>` : ''
+      ].join('');
+      const story = (p.story || []).map(par => `<p>${par}</p>`).join('');
+      const highlights = (p.highlights && p.highlights.length)
+        ? `<ul class="hl">${p.highlights.map((h, i) =>
+            `<li><span class="n">0${i + 1}</span><span>${h}</span></li>`).join('')}</ul>`
+        : '';
+
+      root.innerHTML = `
+        <a class="backlink" href="index.html"><span>←</span> All projects</a>
+
+        <div class="meta-line">
+          <span>${String(idx + 1).padStart(2, '0')}</span><span class="dot"></span>
+          <span>${p.year}</span><span class="dot"></span>
+          <span>${p.tags.join(' · ')}</span>
+        </div>
+        <h1>${p.title}</h1>
+        <p class="lead">${p.blurb}</p>
+
+        <image-slot class="hero-shot shot-frame" id="hero-${p.slug}"
+          placeholder="drop a screenshot of ${p.title} · click or drag an image" radius="20"></image-slot>
+
+        <div class="detail-grid">
+          <aside class="sidecard">
+            <div class="seg">
+              <div class="lbl">Built with</div>
+              <div class="chips">${tags}</div>
+            </div>
+            <div class="seg">
+              <div class="lbl">Year</div>
+              <div style="font-family:var(--mono);font-size:14px;color:var(--ink)">${p.year}</div>
+            </div>
+            <div class="seg links">${links || '<span class="meta" style="color:var(--faint);font-family:var(--mono);font-size:12px">Links coming soon</span>'}</div>
+          </aside>
+
+          <div class="prose">
+            <h2>The story</h2>
+            ${story}
+            ${highlights}
+          </div>
+        </div>
+
+        <nav class="pager">
+          ${prev
+            ? `<a class="prev" href="project.html?p=${prev.slug}"><div class="dir">← Previous</div><div class="ttl">${prev.title}</div></a>`
+            : `<a class="prev disabled"><div class="dir">← Previous</div><div class="ttl">—</div></a>`}
+          ${next
+            ? `<a class="next" href="project.html?p=${next.slug}"><div class="dir">Next →</div><div class="ttl">${next.title}</div></a>`
+            : `<a class="next disabled"><div class="dir">Next →</div><div class="ttl">—</div></a>`}
+        </nav>`;
+    })();
+  </script>
+
+  <!-- ============ TWEAKS ============ -->
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script type="text/babel" src="tweaks-panel.jsx"></script>
+  <script type="text/babel" src="tweaks.jsx"></script>
+</body>
+</html>

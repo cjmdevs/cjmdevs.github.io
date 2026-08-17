@@ -60,6 +60,9 @@
         p.repo ? `<a class="btn primary" href="${p.repo}" target="_blank" rel="noopener">View on GitHub <span class="ar">↗</span></a>` : '',
         p.demo ? `<a class="btn" href="${p.demo}" target="_blank" rel="noopener">Live demo <span class="ar">↗</span></a>` : ''
       ].join('');
+      // the hero frame is wider than the card, so a project can supply its own
+      // wide crop; otherwise the card screenshot is reused
+      const heroShot = p.hero || p.screenshot;
       const story = (p.story || []).map(par => `<p>${par}</p>`).join('');
       const highlights = (p.highlights && p.highlights.length)
         ? `<ul class="hl">${p.highlights.map((h, i) =>
@@ -78,7 +81,7 @@
         <p class="lead">${p.blurb}</p>
 
         <image-slot class="hero-shot shot-frame" id="hero-${p.slug}"
-          placeholder="drop a screenshot of ${p.title} · click or drag an image" radius="20"${p.screenshot ? ` src="${p.screenshot}"` : ''}></image-slot>
+          placeholder="drop a screenshot of ${p.title} · click or drag an image" radius="20"${heroShot ? ` src="${heroShot}"` : ''}></image-slot>
 
         <div class="detail-grid">
           <aside class="sidecard">

@@ -13,11 +13,35 @@
      tags       tech / tools, shown as chips                [required]
      repo       GitHub URL ("" to hide the button)
      demo       live demo URL ("" to hide the button)
+     screenshot card image, 16:11 (also used on the detail page)
+     hero       optional wider 16:8.5 image for the detail page top
      story      array of paragraphs for the detail page
      highlights array of short bullet points (optional)
    ============================================================= */
 
 window.PROJECTS = [
+  {
+    slug: "jokerdeck",
+    title: "Jokerdeck",
+    blurb: "A poker roguelike built for one thumb. Stack absurd jokers, break the score, survive eight antes.",
+    year: "2026",
+    tags: ["javascript", "pwa", "canvas", "svg"],
+    repo: "https://github.com/cjmdevs/Jokerdeck",
+    demo: "https://cjmdevs.github.io/Jokerdeck/",
+    screenshot: "screenshots/jokerdeck.png",
+    hero: "screenshots/jokerdeck-hero.png",
+    story: [
+      "A deck-building poker roguelike you can play with one hand on your phone. You pick a deck, fight through eight antes of escalating blinds, and try to build a joker combo that breaks the score before the numbers get away from you. There's an endless mode after that if you survive.",
+      "The whole thing is plain JavaScript with no build step and no bundler, just ES modules the browser loads directly. All the art is SVG pixel art and all the sound is generated with the WebAudio API, so there isn't a single image or audio file in the repo. It installs to your home screen as a PWA and works completely offline once it's loaded."
+    ],
+    highlights: [
+      "101 jokers across four rarity tiers, 52 consumables, 23 boss blinds",
+      "No framework, no bundler, no asset files. Just ES modules and SVG",
+      "Installable PWA that runs fully offline via service worker",
+      "Auto-save plus three save slots and portable ~1.2 KB save codes",
+      "Self-test suite with unit assertions, fuzz runs, and UI smoke tests"
+    ]
+  },
   {
     slug: "treetop",
     title: "Treetop Management",

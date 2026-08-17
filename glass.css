@@ -225,7 +225,8 @@ image-slot {
 .foot a { color: var(--dim); text-decoration: none; }
 .foot a:hover { color: var(--accent); }
 
-/* reveal animation */
+/* reveal animation — pure CSS, plays on load. Transform-only so content is
+   NEVER invisible (a screenshot at t=0 still shows it), just gently rising. */
 @media (prefers-reduced-motion: no-preference) {
   .reveal { animation: reveal-in 0.7s var(--ease) both; }
   @keyframes reveal-in {
@@ -318,7 +319,9 @@ image-slot {
   background: var(--glass-2);
   box-shadow: inset 0 1px 0 var(--hi), 0 26px 50px -28px rgba(0,0,0,0.9), 0 0 42px -20px var(--glow);
 }
-.card .shot { width: 100%; aspect-ratio: 16 / 11; border-radius: 13px; }
+/* height:auto is required — image-slot's :host sets an explicit height:160px,
+   and aspect-ratio only fills in a dimension that is otherwise unset. */
+.card .shot { width: 100%; height: auto; aspect-ratio: 16 / 11; border-radius: 13px; }
 .card .body { padding: 16px 8px 8px; display: flex; flex-direction: column; gap: 11px; flex: 1; }
 .card .row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
 .card h3 {
@@ -377,7 +380,7 @@ image-slot {
   margin: 0 0 44px;
   font-weight: 300;
 }
-.detail .hero-shot { width: 100%; aspect-ratio: 16 / 8.5; border-radius: 20px; margin-bottom: 56px; }
+.detail .hero-shot { width: 100%; height: auto; aspect-ratio: 16 / 8.5; border-radius: 20px; margin-bottom: 56px; }
 
 .detail-grid {
   display: grid;
